@@ -116,14 +116,14 @@ public class ProcedureController {
 	@Autowired
 	private AttendceDao adao;
 	
-//	@Value("${attachment.roopath}")
+	@Value("${attachment.roopath}")
 	private String rootpath;
 
-	@PostConstruct
+	//@PostConstruct
 	public void UserpanelController(){
 		try {
 			rootpath= ResourceUtils.getURL("classpath:").getPath().replace("/target/classes/","");
-			System.out.println(rootpath);
+			//System.out.println(rootpath);
 
 		}catch (IOException e){
 			System.out.println("获取项目路径异常");

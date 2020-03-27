@@ -2,6 +2,7 @@ package cn.gson.oasys.controller.file;
 
 import java.util.List;
 
+import cn.gson.oasys.services.file.FileTransactionalHandlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,8 @@ public class FileAjaxController {
 	FilePathdao fpdao;
 	@Autowired
 	UserDao udao;
+	@Autowired
+	private FileTransactionalHandlerService fileTransactionalHandlerService;
 	
 	@RequestMapping("mcloadpath")
 	public String mcloadpath(@RequestParam("mctoid") Long mctoid,@RequestParam("mcpathids") List<Long> mcpathids,Model model){
@@ -265,7 +268,7 @@ public class FileAjaxController {
 		System.out.println(type+checkpathids+checkfileids);
 		if (checkfileids!=null) {
 			// 文件放入回收站
-			fs.trashfile(checkfileids, 1L,userid);
+			fileTransactionalHandlerService.trashfile(checkfileids, 1L,userid);
 		}
 		if (checkpathids!=null) {
 			// 删除文件夹
@@ -319,7 +322,7 @@ public class FileAjaxController {
 			@RequestParam(value="checkfileids[]",required=false) List<Long> checkfileids,
 			Model model){
 		if (checkfileids!=null) {
-			fs.filereturnback(checkfileids,userid);
+			fileTransactionalHandlerService.filereturnback(checkfileids,userid);
 		}
 		if (checkpathids!=null) {
 			fs.pathreturnback(checkpathids, userid);

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import cn.gson.oasys.services.file.FileTransactionalHandlerService;
 import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,8 @@ public class FileController {
 	private FileListdao fldao;
 	@Autowired
 	private UserDao udao;
+	@Autowired
+	private FileTransactionalHandlerService fileTransactionalHandlerService;
 
 	/**
 	 * 第一次进入
@@ -180,7 +183,7 @@ public class FileController {
 			// 删除文件
 			//fs.deleteFile(checkfileids);
 			//文件放入回收战
-			fs.trashfile(checkfileids, 1L,userid);
+			fileTransactionalHandlerService.trashfile(checkfileids, 1L,userid);
 		}
 		if (!checkpathids.isEmpty()) {
 			// 删除文件夹

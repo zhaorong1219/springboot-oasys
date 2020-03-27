@@ -25,18 +25,18 @@ public class NotepaperService {
 	@Autowired
 	private NotepaperDao ndao;
 	
-//	@Value("${img.rootpath}")
+	@Value("${img.rootpath}")
 	private String rootpath;
 	
 	public void delete(Long id){
 		ndao.delete(id);
 	}
 
-	@PostConstruct
+	//@PostConstruct
 	public void UserpanelController(){
 		try {
 			rootpath= ResourceUtils.getURL("classpath:").getPath().replace("target/classes/","static/image");
-			System.out.println(rootpath);
+			//System.out.println(rootpath);
 		}catch (IOException e){
 			System.out.println("获取项目路径异常");
 		}

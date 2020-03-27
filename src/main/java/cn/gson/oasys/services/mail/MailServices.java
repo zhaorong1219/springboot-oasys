@@ -75,13 +75,14 @@ public class MailServices {
 	@Autowired
 	private InMailDao imdao;
 
+	@Value("${file.root.path}")
 	private String rootpath;
 
-	@PostConstruct
+	//@PostConstruct
 	public void UserpanelController(){
 		try {
 			rootpath= ResourceUtils.getURL("classpath:").getPath().replace("/target/classes/","/static/attachment");
-			System.out.println(rootpath);
+			//System.out.println(rootpath);
 
 		}catch (IOException e){
 			System.out.println("获取项目路径异常");

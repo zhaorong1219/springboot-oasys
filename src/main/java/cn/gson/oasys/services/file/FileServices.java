@@ -49,16 +49,18 @@ public class FileServices {
 	private AttachmentDao AttDao;
 	@Autowired
 	private AttachService AttachService;
+	@Autowired
+	private FileTransactionalHandlerService fileTransactionalHandlerService;
 	
 	
-//	@Value("${file.root.path}")
+	@Value("${file.root.path}")
 	private String rootPath;
 
-	@PostConstruct
+	//@PostConstruct
 	public void UserpanelController(){
 		try {
 			rootPath= ResourceUtils.getURL("classpath:").getPath().replace("target/classes/","static/file");
-			System.out.println(rootPath);
+			//System.out.println(rootPath);
 		}catch (IOException e){
 			System.out.println("获取项目路径异常");
 		}
@@ -243,35 +245,35 @@ public class FileServices {
 			fpdao.delete(filepath);
 		}
 	}
-	
-	/**
-	 * 根据文件id 将文件放入回收站
-	 * @param fileids
-	 */
-	
-	@Transactional
-	public void trashfile(List<Long> fileids,Long setistrashhowmany,Long userid){
-		for (Long fileid : fileids) {
-			FileList fileList = fldao.findOne(fileid);
-			fileList.setFileIstrash(setistrashhowmany);
-			if(userid != null){
-				fileList.setFpath(null);
-			}
-			
-			fldao.save(fileList);
-		}
-		
-	}
-	
+
+//	/**
+//	 * 根据文件id 将文件放入回收站
+//	 * @param fileids
+//	 */
+//
+//	@Transactional
+//	public void trashfile(List<Long> fileids,Long setistrashhowmany,Long userid){
+//		for (Long fileid : fileids) {
+//			FileList fileList = fldao.findOne(fileid);
+//			fileList.setFileIstrash(setistrashhowmany);
+//			if(userid != null){
+//				fileList.setFpath(null);
+//			}
+//
+//			fldao.save(fileList);
+//		}
+//
+//	}
+
 //	public void trashPath(List<Long> pathids){
 //		for (Long pathid : pathids) {
 //			FilePath filepath = fpdao.findOne(pathid);
-//			
+//
 //			filepath.setPathIstrash(1L);
-//			
+//
 //			fpdao.save(filepath);
 //		}
-//		
+//
 //	}
 	
 	/**
@@ -292,7 +294,7 @@ public class FileServices {
 				for (FileList filelist : files) {
 					fileids.add(filelist.getFileId());
 				}
-				trashfile(fileids,2L,null);
+				fileTransactionalHandlerService.trashfile(fileids,2L,null);
 			}
 //			System.out.println("此文件夹内的文件修改成功");
 			//然后将此文件夹下的文件夹放入回收战
@@ -315,7 +317,7 @@ public class FileServices {
 			fpdao.save(filepath);
 		}
 	}
-	
+
 	/**
 	 * 文件还原
 	 * @param checkfileids
@@ -325,7 +327,7 @@ public class FileServices {
 		FilePath fpath = fpdao.findByParentIdAndPathUserId(1L, userid);
 		for (Long checkfileid : checkfileids) {
 			FileList fileList = fldao.findOne(checkfileid);
-			
+
 			if (userid != null) {
 				String name = onlyname(fileList.getFileName(), fpath, fileList.getFileShuffix(), 1, true);
 				fileList.setFpath(fpath);
@@ -334,13 +336,11 @@ public class FileServices {
 			fileList.setFileIstrash(0L);
 			fldao.save(fileList);
 		}
-		
+
 	}
 	
 	/**
 	 * 文件夹还原
-	 * @param pathids
-	 * @param setistrashhaomany
 	 */
 	public void pathreturnback(List<Long> pathids,Long userid){
 		for (Long pathid : pathids) {
@@ -390,7 +390,6 @@ public class FileServices {
 	
 	/**
 	 * 复制和移动
-	 * @param ids
 	 * @param fromwhere  1为移动  2 为复制
 	 */
 	@Transactional

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Date;
@@ -74,6 +75,7 @@ public class recordInterceptor extends HandlerInterceptorAdapter{
 
 
 	@Override
+	@Transactional(rollbackOn = Exception.class)
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response,  Object handler, Exception ex)
 			throws Exception {
 		HttpSession session=request.getSession();
@@ -94,8 +96,12 @@ public class recordInterceptor extends HandlerInterceptorAdapter{
 	
 		//还没有登陆不能获取session
 		
-		uLog.setUser(new User());
-//		uLog.setUser(userDao.findOne(1l));
+//		uLog.setUser(new User());
+		Long id = (Long) session.getAttribute("id");
+		if(StringUtils.isEmpty(id)){
+			return ;
+		}
+		uLog.setUser(userDao.findOne(id));
 		//从菜单表里面匹配
 		List<SystemMenu> sMenus=(List<SystemMenu>) systemMenuDao.findAll();
 		for (SystemMenu systemMenu : sMenus) {

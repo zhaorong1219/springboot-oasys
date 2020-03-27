@@ -274,7 +274,7 @@ h1, h3 {
 
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span id="ctl00_cphMain_Label15">皮肤</span></label> <select
-									name="themeSkin" id="ctl00_cphMain_ddlSkin"
+									name="themeSkin" id="ctl00_cphMain_ddlSkin" onchange="alert('刷新页面生效')"
 									class="form-control select2">
 									<option value="blue">经典蓝</option>
 									<option value="green">青草绿</option>
@@ -324,11 +324,14 @@ h1, h3 {
 							<div class="col-md-6 form-group">
 								<label><span id="ctl00_cphMain_Label17">头像</span></label>
 								<div class="form-group">
-									<div class="btn btn-default"
-										style="position: relative; overflow: hidden;">
-										<i class="glyphicon glyphicon-open"></i> 上传头像
+									<div>
+<#--									<div class="btn btn-default"-->
+<#--										style="position: relative; overflow: hidden;">-->
+<#--										<i class="glyphicon glyphicon-open"></i> 上传头像-->
+<#--										<input type="file" name="filePath"-->
+<#--											   style="opacity: 0; position: absolute; top: 0; right: 0; min-width: 100%; min-height: 100%;">-->
 										 <input type="file" name="filePath"
-											style="opacity: 0; position: absolute; top: 0; right: 0; min-width: 100%; min-height: 100%;">
+											style="width: 100%; ">
 									</div>
 									<p class="help-block">尺寸在512*512以内，大小在500KB以内</p>
 								</div>

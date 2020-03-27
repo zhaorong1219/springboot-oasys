@@ -22,15 +22,13 @@ public class WebControllerException {
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public void errorHandler(Exception ex) {
-        ex.printStackTrace();
-        System.out.println("异常处理："+ex.getMessage());
+        System.out.println("全局异常处理："+ex.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(value = ServiceException.class)
     public void errorHandler(ServiceException ex) {
-        ex.printStackTrace();
-        System.out.println("异常处理："+ex.getMessage());
+        System.out.println("业务异常处理："+ex.getMessage());
     }
 
 

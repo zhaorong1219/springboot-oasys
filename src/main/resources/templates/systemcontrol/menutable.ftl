@@ -44,7 +44,7 @@
 						<#list twoMenuAll as two>
 						<#if one.menuId==two.parentId>
 						<tr>
-							<td>${(two.menuName)!''}</td>
+							<td     style=" text-align: center;">${(two.menuName)!''}</td>
 							<td><span class="glyphicon ${(two.menuIcon)!''}"></span></td>
 							<td><span>${(two.menuUrl)!''}</span></td>
 							<td><span>子级菜单栏</span></td>

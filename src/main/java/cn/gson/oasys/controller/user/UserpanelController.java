@@ -64,14 +64,14 @@ public class UserpanelController {
 	@Autowired
 	private NotepaperService nservice;
 	
-//	@Value("${img.rootpath}")
+	@Value("${img.rootpath}")
 	private String rootpath;
 
-	@PostConstruct
+	//@PostConstruct
 	public void UserpanelController(){
 		try {
 			rootpath= ResourceUtils.getURL("classpath:").getPath().replace("/target/classes/","/static/image");
-			System.out.println(rootpath);
+			//System.out.println(rootpath);
 
 		}catch (IOException e){
 			System.out.println("获取项目路径异常");
