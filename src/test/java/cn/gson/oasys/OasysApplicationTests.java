@@ -15,7 +15,7 @@ import cn.gson.oasys.services.inform.InformService;
 
 //@RunWith(SpringRunner.class)
 //@SpringBootTest
-public class OasysApplicationTests {
+public class 	OasysApplicationTests {
 	
 	@Autowired
 	private NoticeMapper nm;
