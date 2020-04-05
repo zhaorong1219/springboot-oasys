@@ -60,7 +60,7 @@ oasys是一个OA办公自动化系统，使用Maven进行项目管理，基于sp
 
 ### 3.部署流程
 
-	    1.下载项目、把oasys.sql(原tr18lx.sql)导入本地数据库
+	    1.下载项目、把oasys.sql导入本地数据库
 		2. 修改application.properties，
 		3. 修改数据源，oasys——>自己本地的库名，用户名和密码修改成自己的
 		4. 修改相关路径，配置图片路径、文件路径、附件路径。(static/image/oasys.jpg 拷贝到配置的图片路径下，不然会报 FileNotFoundException )
