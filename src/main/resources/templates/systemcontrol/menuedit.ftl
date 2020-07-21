@@ -66,11 +66,15 @@ a:hover {
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>父级</span></label> 
 								 <select class="form-control" name="parentId">
-								 <#if menuObj??>
-								 	<option value="${menuObj.menuId}" selected="selected">${menuObj.menuName}</option>
-								 </#if>
+                                <#if menuObj.parentId == 0>
+                                    <option value="0" selected>顶级</option>
+                                </#if>
 								 <#list parentList as list>
-								 	<option value="${list.menuId}">${list.menuName}</option>
+                                     <#if menuObj.parentId == list.menuId>
+										 <option value="${list.menuId}" selected>${list.menuName}</option>
+                                         <#else>
+											  <option value="${list.menuId}">${list.menuName}</option>
+                                     </#if>
 								 </#list>
 								 </select>
 								<!-- <#if getAdd??>
